@@ -11,10 +11,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 const router = createBrowserRouter([
   {path: "/", element: <Dashboard/>},
-  {path: "/CarDetails", element: <CarDetails/>},
-  {path: "/Cars", element: <Cars/>},
-  {path: "/AddCar", element: <AddCar/>},
-  {path: "/Settings", element: <Settings/>},
+  {path: "/car-details", element: <CarDetails/>},
+  {path: "/cars", element: <Cars/>},
+  {path: "/add-car", element: <AddCar/>},
+  {path: "/settings", element: <Settings/>},
   {path: "*", element: <NotFoundPage/>}
 ])
 
