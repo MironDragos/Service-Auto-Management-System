@@ -1,5 +1,11 @@
+import Layout from "../components/Layout.jsx"
+
 export default function Cars() {
   return (
-    <h1>Cars</h1>
+    <>
+      <Layout>
+        <h1>Cars</h1>
+      </Layout>
+    </>
   )
 }

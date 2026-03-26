@@ -1,5 +1,9 @@
+import Layout from "../components/Layout.jsx"
+
 export default function CarDetails() {
   return (
-    <h1>CarDetails</h1>
+    <Layout>
+      <h1>Car Details</h1>
+    </Layout>
   )
 }

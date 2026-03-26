@@ -1,5 +1,11 @@
+import Layout from "../components/Layout.jsx"
+
 export default function Settings() {
   return (
-    <h1>Settings</h1>
+    <>
+      <Layout>
+        <h1>Settings</h1>
+      </Layout>
+    </>
   )
 }

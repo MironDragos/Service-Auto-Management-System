@@ -1,5 +1,9 @@
+import Layout from "../components/Layout.jsx"
+
 export default function AddCar() {
   return (
-    <h1>AddCar</h1>
+    <Layout>
+      <h1>Add Car</h1>
+    </Layout>
   )
 }
