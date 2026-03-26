@@ -1,5 +1,12 @@
+import Sidebar from "../components/Sidebar.jsx"
+import Layout from "../components/Layout.jsx"
+
 export default function Dashboard() {
   return (
-    <h1>Dashboard</h1>
+    <>
+      <Layout>
+        <h1>Dashboard</h1>
+      </Layout>
+    </>
   )
 }
