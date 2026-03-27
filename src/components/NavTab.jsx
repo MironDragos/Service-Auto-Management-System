@@ -10,7 +10,6 @@ export default function NavTab({page}){
         <Link 
         to={`/${page.toLowerCase()}`} 
         className={`w-full p-3 mb-2 mt-2 rounded-lg ${active ? 'text-white bg-slate-800' : 'text-black' }`}>
-
             {page}
         </Link>
     )
