@@ -11,15 +11,7 @@ import {
     Tooltip
 } from 'recharts'
 
-export default function Chart(){
-    const data = [
-        { luna: 'Ian', masini: 45 },
-        { luna: 'Feb', masini: 52 },
-        { luna: 'Mar', masini: 38 },
-        { luna: 'Apr', masini: 65 },
-        { luna: 'Mai', masini: 48 },
-        { luna: 'Iun', masini: 70 },
-    ];
+export default function Chart({data}){
     return(
         <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data}>
@@ -36,12 +28,6 @@ export default function Chart(){
                     stroke='black'
                     fill='gray'
                     stackId='1'
-                />
-                <Area 
-                    dataKey="luna" 
-                    type="monotone"
-                    stroke='black'
-                    fill='gray'
                 />
             </AreaChart>
         </ResponsiveContainer>
