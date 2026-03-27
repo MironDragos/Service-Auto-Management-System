@@ -5,7 +5,7 @@ export default function Layout({ children }){
     return(
         <div className="flex min-h-screen ">
             <Sidebar />
-            <div className="w-3/4">
+            <div className="w-4/5">
                 <Header/>
                 {children}
             </div>
