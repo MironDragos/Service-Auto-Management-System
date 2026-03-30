@@ -1,8 +1,8 @@
 'use client'
 
 import { 
-    AreaChart, 
-    Area, 
+    BarChart, 
+    Bar, 
     ResponsiveContainer,
     XAxis,
     YAxis,
@@ -14,7 +14,7 @@ import {
 export default function Chart({data}){
     return(
         <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={data}>
+            <BarChart data={data}>
                 <YAxis />
                 <XAxis dataKey='luna'/>
                 <CartesianGrid strokeDasharray="5 5"/>
@@ -22,14 +22,14 @@ export default function Chart({data}){
                 <Legend/>
                 <Tooltip/>
 
-                <Area 
+                <Bar 
                     dataKey="masini" 
                     type="monotone"
                     stroke='black'
                     fill='gray'
                     stackId='1'
                 />
-            </AreaChart>
+            </BarChart>
         </ResponsiveContainer>
     )
 }
