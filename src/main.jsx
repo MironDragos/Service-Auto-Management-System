@@ -7,10 +7,10 @@ import Cars from './pages/Cars.jsx'
 import AddCar from './pages/AddCar.jsx'
 import Settings from './pages/Settings.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 
 const router = createBrowserRouter([
-  {path: "/", element: <Dashboard/>},
+  {path: "/", element: <Navigate to="/dashboard"/>},
   {path: "/dashboard", element: <Dashboard/>},
   {path: "/car-details", element: <CarDetails/>},
   {path: "/cars", element: <Cars/>},
