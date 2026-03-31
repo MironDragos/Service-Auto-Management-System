@@ -3,6 +3,7 @@ import AreaChart from "../components/AreaChart.jsx"
 import BarChart from "../components/BarChart.jsx"
 import LineChart from "../components/LineChart.jsx"
 import CarDetailsCard from "../components/CarDetailsCard.jsx"
+import cars from "../data/cars.js"
 
 export default function Dashboard() {
   const carsPerMonth = [
@@ -13,20 +14,14 @@ export default function Dashboard() {
         { luna: '20-25', masini: 48 },
         { luna: '25-30', masini: 70 },
     ];
-  const cars = [
-    { car: "Dacia Logan", issue: "Engine issues", image: "https://placehold.co/100x60" },
-    { car: "BMW E46", issue: "Brake pads replacement", image: "https://placehold.co/100x60" },
-    { car: "VW Golf 5", issue: "Suspension damage", image: "https://placehold.co/100x60" },
-    { car: "Toyota Corolla", issue: "Oil leak", image: "https://placehold.co/100x60" },
-  ]
   
   return (
     <>
       <Layout>
-        <div className="flex flex-col gap-8 p-8 w-full h-[90%]">
+        <div className="flex flex-col gap-6 p-6 w-full h-[90%]">
 
-        <div className="grid grid-cols-[1.1fr_1fr] grid-rows-[0.9fr_1fr] gap-8 h-[70%]">
-
+        <div className="grid grid-cols-[1.1fr_1fr] grid-rows-[0.9fr_1fr] gap-6 h-[66.6%]">
+          
           <div className="p-8  rounded-lg bg-slate-200 ">
             <div className="flex justify-between">
               <h1 className="inline-block wrap">Cars in progress</h1>
@@ -74,7 +69,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 p-6 h-[30%] rounded-lg bg-slate-200">
+        <div className="flex flex-col gap-4 p-6 h-[33.3%] rounded-lg bg-slate-200">
           <div className="flex justify-between">
             <h1 className="inline-block wrap">Current orders</h1>
             <span>
