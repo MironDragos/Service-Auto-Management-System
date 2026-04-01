@@ -5,8 +5,20 @@ export default function Cars() {
   return (
     <>
       <Layout>
-        <div className="flex flex-col gap-6 p-6 w-full h-[90%]">
-          <div className= "p-6 bg-white">
+        <div className="flex flex-col gap-3 p-6 w-full h-[90%]">
+
+          <div className="flex justify-between px-6 pt-6 ">
+            <div className="flex gap-6">
+              <p className="font-medium text-xl text-slate-700">Completed</p>
+              <p className="font-medium text-xl text-slate-700">Done</p>
+              <p className="font-medium text-xl text-slate-700">In progress</p>
+            </div>
+            <div>
+              <a className="font-normal text-lg text-blue-600 underline hover:text-blue-800" href="/add-car">Add a car</a>
+            </div>
+          </div>
+
+          <div className= "px-6 bg-white">
           <table className="w-full border-separate border-spacing-y-5 ">
             <thead className="">
               <tr className="rounded-lg bg-slate-200">
