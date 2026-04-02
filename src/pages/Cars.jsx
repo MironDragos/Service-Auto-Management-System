@@ -1,7 +1,13 @@
 import Layout from "../components/Layout.jsx"
 import cars from "../data/cars.js"
+import {useState} from "react"
 
 export default function Cars() {
+  const [filter, setFilter] = useState("Waiting")
+  
+  const filtredList = filter === "All" ? cars : cars.filter(car => car.status == filter)
+  let active
+
   return (
     <>
       <Layout>
@@ -9,9 +15,10 @@ export default function Cars() {
 
           <div className="flex justify-between px-6 pt-6 ">
             <div className="flex gap-6">
-              <p className="font-medium text-xl text-slate-700">Completed</p>
-              <p className="font-medium text-xl text-slate-700">Done</p>
-              <p className="font-medium text-xl text-slate-700">In progress</p>
+              <p onClick={()=> setFilter("All") } className={`font-normal text-xl text-slate-700 hover:text-slate-600 hover:cursor-pointer ${filter === "All" ? 'text-slate-800 underline' : 'text-slate-700'}`}>All</p>
+              <p onClick={()=> setFilter("Waiting")} className={`font-normal text-xl text-slate-700 hover:text-slate-600 hover:cursor-pointer ${filter === "Waiting" ? 'text-slate-800 underline' : 'text-slate-700'}`}>Waiting</p>
+              <p onClick={()=> setFilter("In progress")} className={`font-normal text-xl text-slate-700 hover:text-slate-600 hover:cursor-pointer ${filter === "In progress" ? 'text-slate-800 underline' : 'text-slate-700'}`}>In progress</p>
+              <p onClick={()=> setFilter("Completed")} className={`font-normal text-xl text-slate-700 hover:text-slate-600 hover:cursor-pointer ${filter === "Completed" ? 'text-slate-800 underline' : 'text-slate-700'}`}>Completed</p>
             </div>
             <div>
               <a className="font-normal text-lg text-blue-600 underline hover:text-blue-800" href="/add-car">Add a car</a>
@@ -32,7 +39,7 @@ export default function Cars() {
               </tr>
             </thead>
             <tbody className="">
-              {cars.map((prop) => (
+              {filtredList.slice(0, 7).map((prop) => (
                 <tr key={prop.id} className="rounded-lg bg-slate-100">
                   <td className="border-l border-y border-slate-300 py-4 px-2 rounded-l-lg text-center">{prop.id}</td>
                   <td className="border-y border-slate-300 py-4 px-2">{prop.client}</td>
