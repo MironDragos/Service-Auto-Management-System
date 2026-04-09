@@ -1,5 +1,5 @@
 const cars = [
-  { id: 1, client: "John Smith", car: "BMW E46", mechanic: "Andrew", status: "In progress", date: "2026-03-28", image: "https://placehold.co/100x60" },
+  { id: 1, client: "John Smith", car: "BMW E46", mechanic: "Andrew ", status: "In progress", date: "2026-03-28", image: "https://placehold.co/100x60" },
   { id: 2, client: "Maria Johnson", car: "Dacia Logan", mechanic: "Michael", status: "Waiting", date: "2026-03-29", image: "https://placehold.co/100x60" },
   { id: 3, client: "Alex Brown", car: "VW Golf 5", mechanic: "Andrew", status: "Completed", date: "2026-03-30", image: "https://placehold.co/100x60" },
   { id: 4, client: "Sarah Davis", car: "Toyota Corolla", mechanic: "Daniel", status: "Waiting", date: "2026-03-30", image: "https://placehold.co/100x60" },

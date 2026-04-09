@@ -2,7 +2,10 @@ import Layout from "../components/Layout.jsx"
 
 export default function AddCar() {
   return (
-    <Layout>
+    <Layout 
+      left={
+          <input type="text" id="myInput" on placeholder="Search for names.."></input>
+      }>
       <h1>Add Car</h1>
     </Layout>
   )

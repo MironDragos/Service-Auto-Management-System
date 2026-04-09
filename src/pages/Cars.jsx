@@ -5,13 +5,20 @@ import { Link } from "react-router-dom";
 
 export default function Cars() {
   const [filter, setFilter] = useState("All")
+  const [searchContent, setSearchContent] = useState("")
   
-  const filtredList = filter === "All" ? cars : cars.filter(car => car.status == filter)
-  let active
-
+  const statusFiltredList = filter === "All" ? cars : cars.filter(car => car.status == filter)
+  const searchFiltredList = statusFiltredList.filter(car=> car.client.toLowerCase().includes(searchContent.toLowerCase())||car.car.toLowerCase().includes(searchContent.toLowerCase()))
   return (
     <>
-      <Layout>
+      <Layout
+        left={
+          <input onChange={(e)=>setSearchContent(e.target.value)} className="p-2 rounded-lg" type="text" id="myInput" on placeholder="Search cars.."></input>
+        }
+        right={
+          <p className="font-medium text-2xl ">Cars in the workshop</p>
+        }
+      >
         <div className="flex flex-col gap-3 p-6 w-full h-[90%]">
 
           <div className="flex justify-between px-6 pt-6 ">
@@ -29,7 +36,7 @@ export default function Cars() {
           <div className="px-6 bg-white overflow-hidden">
   
   <table className="w-full flex flex-col">
-    <thead className="pb-4 w-full">
+    <thead className=" pb-4 w-full">
       <tr className="flex w-full rounded-lg bg-slate-200"> 
         <th className="flex-1 border-l border-y border-slate-400 p-2 rounded-l-lg">Id</th>
         <th className="flex-1 border-y border-slate-400 p-2">Client</th>
@@ -42,7 +49,7 @@ export default function Cars() {
     </thead>
     
     <tbody className=" pr-2 flex flex-col gap-2 w-full overflow-y-auto max-h-[575px] rounded-lg"> 
-      {filtredList.map((prop) => (
+      {searchFiltredList.map((prop) => (
         <tr key={prop.id} className="flex w-full mb-2 rounded-lg bg-slate-100"> 
           <td className="flex-1 border-l border-y border-slate-300 py-4 px-2 rounded-l-lg text-center">{prop.id}</td>
           <td className="flex-1 border-y border-slate-300 py-4 px-2">{prop.client}</td>

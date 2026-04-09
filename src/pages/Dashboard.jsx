@@ -17,7 +17,15 @@ export default function Dashboard() {
   
   return (
     <>
-      <Layout>
+      <Layout
+        left={
+          <div></div>
+        }
+        right={
+          <p className="font-medium text-2xl">Hi, User_name</p>
+        }
+      >
+    
         <div className="flex flex-col gap-6 p-6 w-full h-[90%]">
 
         <div className="grid grid-cols-[1.1fr_1fr] grid-rows-[0.9fr_1fr] gap-6 h-[66.6%]">
