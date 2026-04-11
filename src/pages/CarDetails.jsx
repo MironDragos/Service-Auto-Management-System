@@ -5,7 +5,10 @@ export default function CarDetails() {
   return (
     <Layout 
       left={
-      <input type="text" id="myInput" placeholder="Search for names.."></input>
+        <div></div>
+      }
+      right={
+        <div></div>
       }>
       <h1>Car Details</h1>
     </Layout>
