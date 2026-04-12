@@ -53,7 +53,7 @@ export default function Cars() {
                     <td className="flex-1 border-y border-slate-300 py-4 px-2">{prop.status}</td>
                     <td className="flex-1 border-y border-slate-300 py-4 px-2">{prop.date}</td>
                     <td className="flex-1 border-r border-y border-slate-300 py-4 px-2 rounded-r-lg flex justify-between items-center">  
-                      <button className="text-blue-700" type="button">Edit</button>
+                      <Link to={`/car-details/${prop.id}`}>Edit</Link>
                       <button className="text-red-600" type="button">Delete</button>
                     </td>
                   </tr>

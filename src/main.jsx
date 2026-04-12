@@ -12,7 +12,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 const router = createBrowserRouter([
   {path: "/", element: <Navigate to="/dashboard"/>},
   {path: "/dashboard", element: <Dashboard/>},
-  {path: "/car-details", element: <CarDetails/>},
+  {path: "/car-details/:id", element: <CarDetails/>},
   {path: "/cars", element: <Cars/>},
   {path: "/add-car", element: <AddCar/>},
   {path: "/settings", element: <Settings/>},
