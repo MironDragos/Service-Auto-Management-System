@@ -28,7 +28,7 @@ export default function Dashboard() {
     
         <div className="flex flex-col gap-6 p-6 w-full h-[90%]">
           <div className="grid grid-cols-[1.1fr_1fr] grid-rows-[0.9fr_1fr] gap-6 h-[66.6%]">
-            <div className="p-8  rounded-lg bg-slate-200 ">
+            <div className="p-8  rounded-lg bg-slate-200 border-[1px] border-slate-300">
               <div className="flex justify-between">
                 <h1 className="inline-block wrap">Cars in progress</h1>
                 <span>
@@ -40,7 +40,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="p-8 rounded-lg bg-slate-200 ">
+            <div className="p-8 rounded-lg bg-slate-200 border-[1px] border-slate-300">
               <div className="flex justify-between">
                 <h1 className="inline-block wrap">Cars waiting</h1>
                 <span>
@@ -52,7 +52,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="pb-12 pr-8 pt-7  rounded-lg bg-slate-200 ">
+            <div className="pb-12 pr-8 pt-7  rounded-lg bg-slate-200 border-[1px] border-slate-300">
               <div className="flex justify-between">
                 <h1 className="inline-block pl-10 pb-4 wrap">Total cars this month</h1>
                 <span>
@@ -62,7 +62,7 @@ export default function Dashboard() {
               <BarChart data={carsPerMonth}/>
             </div>
 
-            <div className="p-8  rounded-lg bg-slate-200 ">
+            <div className="p-8  rounded-lg bg-slate-200 border-[1px] border-slate-300">
               <div className="flex justify-between">
                 <h1 className="inline-block wrap">Cars completed today</h1>
                 <span>
@@ -75,7 +75,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 p-6 h-[33.3%] rounded-lg bg-slate-200">
+          <div className="flex flex-col gap-4 p-6 h-[33.3%] rounded-lg bg-slate-200 border-[1px] border-slate-300">
             <div className="flex justify-between">
               <h1 className="inline-block wrap">Current orders</h1>
               <span>

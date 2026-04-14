@@ -6,7 +6,7 @@ export default function Layout({ left,right,children }){
         <div className="flex min-h-screen ">
             <Sidebar />
             <div className="w-4/5">
-                <header className="flex justify-between items-center content-center bg-slate-200 px-8 h-20 ">
+                <header className="flex justify-between items-center content-center bg-slate-200 px-6 h-20 border-b-[1px] border-slate-300">
                     {right}
                     {left}
                 </header>
