@@ -1,14 +1,34 @@
 import Layout from "../components/Layout.jsx"
-import cars from "../data/cars.js"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
+import { supabase } from "../libs/supabaseClient.js";
 
 export default function Cars() {
+
+  const [cars, setCars] = useState("")
   const [filter, setFilter] = useState("All")
   const [searchContent, setSearchContent] = useState("")
+  const statusFiltredList="";
+  const searchFiltredList="";
+
+  async function getData(){
+    const { data, error } = await supabase
+      .from('cars')
+      .select('*')
+      
+      if(error){
+        alert("Eroare: " + error)
+      }else{
+        setCars(data)
+        statusFiltredList = filter === "All" ? cars : cars.filter(car => car.status == filter)
+        searchFiltredList = statusFiltredList.filter(car=> car.client.toLowerCase().includes(searchContent.toLowerCase())||car.car_model.toLowerCase().includes(searchContent.toLowerCase()))
+      }
+    }
   
-  const statusFiltredList = filter === "All" ? cars : cars.filter(car => car.status == filter)
-  const searchFiltredList = statusFiltredList.filter(car=> car.client.toLowerCase().includes(searchContent.toLowerCase())||car.car.toLowerCase().includes(searchContent.toLowerCase()))
+  useEffect(()=>{
+    getData();
+  }, [])
+
   return (
     <>
       <Layout
@@ -18,22 +38,22 @@ export default function Cars() {
         right={
           <p className="font-medium text-2xl ">Cars in the workshop</p>
         }>
-        <div className="flex flex-col gap-3 pt-2 w-full h-[90%]">
+        <div className="flex flex-col gap-3 pt-2 w-full h-[90%] bg-slate-200">
           <div className="flex justify-between px-6 pt-6 ">
-            <div className="flex gap-6">
-              <p onClick={()=> setFilter("All") } className={`font-normal text-xl text-slate-700 hover:text-slate-600 hover:cursor-pointer ${filter === "All" ? 'text-slate-800 underline' : 'text-slate-700'}`}>All</p>
-              <p onClick={()=> setFilter("Waiting")} className={`font-normal text-xl text-slate-700 hover:text-slate-600 hover:cursor-pointer ${filter === "Waiting" ? 'text-slate-800 underline' : 'text-slate-700'}`}>Waiting</p>
-              <p onClick={()=> setFilter("In progress")} className={`font-normal text-xl text-slate-700 hover:text-slate-600 hover:cursor-pointer ${filter === "In progress" ? 'text-slate-800 underline' : 'text-slate-700'}`}>In progress</p>
-              <p onClick={()=> setFilter("Completed")} className={`font-normal text-xl text-slate-700 hover:text-slate-600 hover:cursor-pointer ${filter === "Completed" ? 'text-slate-800 underline' : 'text-slate-700'}`}>Completed</p>
+            <div className="flex gap-4">
+              <p onClick={()=> setFilter("All") } className={`px-2 border-[1px] rounded-lg font-normal text-xl text-slate-700  hover:cursor-pointer ${filter === "All" ? 'bg-slate-800 border-white text-white' : 'text-slate-700'}`}>All</p>
+              <p onClick={()=> setFilter("Waiting")} className={`px-2 border-[1px] rounded-lg font-normal text-xl text-slate-700 hover:cursor-pointer ${filter === "Waiting" ? 'bg-slate-800 border-white text-white' : 'text-slate-700'}`}>Waiting</p>
+              <p onClick={()=> setFilter("In progress")} className={`px-2 border-[1px] rounded-lg font-normal text-xl text-slate-700 hover:cursor-pointer ${filter === "In progress" ? 'bg-slate-800 border-white text-white' : 'text-slate-700'}`}>In progress</p>
+              <p onClick={()=> setFilter("Completed")} className={`px-2 font-normal border-[1px] rounded-lg text-xl text-slate-700 hover:cursor-pointer ${filter === "Completed" ? 'bg-slate-800 border-white text-white' : 'text-slate-700'}`}>Completed</p>
             </div>
             <div>
               <Link to="/add-car" className="font-normal text-lg text-blue-600 underline hover:text-blue-800" >Add a car</Link>
             </div>
           </div>
-          <div className="px-6 bg-white overflow-hidden">
-            <table className="w-full flex flex-col">
+          <div className="px-6 overflow-hidden">
+            <table className="w-full flex flex-col ">
               <thead className=" pb-4 w-full">
-                <tr className="flex w-full rounded-lg bg-slate-200"> 
+                <tr className="flex w-full rounded-lg bg-slate-100"> 
                   <th className="flex-1 border-l border-y border-slate-400 p-2 rounded-l-lg">Id</th>
                   <th className="flex-1 border-y border-slate-400 p-2">Client</th>
                   <th className="flex-1 border-y border-slate-400 p-2">Car</th>
@@ -48,7 +68,7 @@ export default function Cars() {
                   <tr key={prop.id} className="flex w-full mb-2 rounded-lg bg-slate-100"> 
                     <td className="flex-1 border-l border-y border-slate-300 py-4 px-2 rounded-l-lg text-center">{prop.id}</td>
                     <td className="flex-1 border-y border-slate-300 py-4 px-2">{prop.client}</td>
-                    <td className="flex-1 border-y border-slate-300 py-4 px-2">{prop.car}</td>
+                    <td className="flex-1 border-y border-slate-300 py-4 px-2">{prop.car_model}</td>
                     <td className="flex-1 border-y border-slate-300 py-4 px-2">{prop.mechanic}</td>
                     <td className="flex-1 border-y border-slate-300 py-4 px-2">{prop.status}</td>
                     <td className="flex-1 border-y border-slate-300 py-4 px-2">{prop.date}</td>

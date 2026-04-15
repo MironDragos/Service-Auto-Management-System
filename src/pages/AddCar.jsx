@@ -1,5 +1,6 @@
 import Layout from "../components/Layout.jsx"
 import { useState } from "react"
+import { supabase } from "../libs/supabaseClient.js"
 
 export default function AddCar() {
   const [clientName, setClientName] = useState("")
@@ -8,9 +9,28 @@ export default function AddCar() {
   const [status, setStatus] = useState("")
   const [date, setDate] = useState("")
 
-  function handleSubmit(e) {
-  e.preventDefault()
-  console.log({ clientName, carModel, mechanic, status, date })
+
+  async function handleSubmit(e){
+    e.preventDefault();
+    const { data, error } = await supabase
+      .from('cars')
+      .insert([
+        {client: clientName, car_model: carModel, mechanic: mechanic, status: status, date: date}
+      ])
+    
+    if(error){
+      alert("Eroare: " + error)
+    }else{
+      setClientName("")
+      setCarModel("")
+      setMechanic("")
+      setStatus("")
+      setDate("")
+
+      e.target.reset();
+
+      alert("Adaugat cu succes")
+    }
   }
 
   return (
@@ -21,8 +41,8 @@ export default function AddCar() {
       right={
         <div></div>
       }>
-      <div className="flex flex-col justify-center items-center gap-6 p-6 w-full h-[90%]">
-        <div className="flex flex-col justify-center items-center w-7/12 border-[1px] bg-slate-200 border-slate-300 p-6 px-8 rounded-lg">
+      <div className="flex flex-col justify-center items-center gap-6 p-6 w-full h-[90%] bg-slate-200">
+        <div className="flex flex-col justify-center items-center w-7/12 border-[1px] bg-gray-100 border-slate-300 p-6 px-8 rounded-lg">
           <h1 className="text-2xl font-semibold" >Add a car</h1>
           <form onSubmit={handleSubmit} className="flex flex-col pt-4 h-full w-full" action="">
             <label htmlFor="clientName">Client Name</label>
@@ -49,7 +69,7 @@ export default function AddCar() {
               </div>
             </div>
 
-            <input className="bg-slate-500 p-2 w-36 rounded-md text-white cursor-pointer font-medium" type="submit" name="" id="" />
+            <input className="bg-slate-500 border-[1px] border-slate-600 p-2 w-36 rounded-lg text-white cursor-pointer font-medium" type="submit" name="" id="" />
           </form>
         </div>
       </div>
