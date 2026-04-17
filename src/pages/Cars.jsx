@@ -5,29 +5,46 @@ import { supabase } from "../libs/supabaseClient.js";
 
 export default function Cars() {
 
-  const [cars, setCars] = useState("")
+  const [cars, setCars] = useState([])
   const [filter, setFilter] = useState("All")
   const [searchContent, setSearchContent] = useState("")
-  const statusFiltredList="";
-  const searchFiltredList="";
 
   async function getData(){
     const { data, error } = await supabase
       .from('cars')
       .select('*')
-      
-      if(error){
-        alert("Eroare: " + error)
-      }else{
-        setCars(data)
-        statusFiltredList = filter === "All" ? cars : cars.filter(car => car.status == filter)
-        searchFiltredList = statusFiltredList.filter(car=> car.client.toLowerCase().includes(searchContent.toLowerCase())||car.car_model.toLowerCase().includes(searchContent.toLowerCase()))
-      }
+
+    if(error){
+      alert("Eroare: " + error)
+    }else{
+      setCars(data)
     }
+  }
   
   useEffect(()=>{
     getData();
   }, [])
+
+
+  const statusFiltredList = filter === "All" ? cars : cars.filter(car => car.status == filter)
+  const searchFiltredList = statusFiltredList.filter(car=> car.client.toLowerCase().includes(searchContent.toLowerCase())||car.car_model.toLowerCase().includes(searchContent.toLowerCase()))
+  if (cars.length === 0) {
+    return (
+      <Layout 
+      left={
+        <div></div>
+      }
+      right={
+        <div>
+          <h1 className="font-medium text-2xl">Cars in the workshop</h1>
+        </div>
+      }>
+        <div className="flex items-center justify-center h-[90%] bg-slate-200">
+          <div class="h-12 w-12 animate-spin rounded-full border-8 border-gray-200 border-t-slate-600"></div>
+        </div>
+      </Layout>
+    )
+  }
 
   return (
     <>

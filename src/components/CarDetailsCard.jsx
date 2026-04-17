@@ -1,13 +1,12 @@
-export default function CarDetailsCard({prop}){
-
-    return(prop.slice(0, 4).map((prop) => (
-            <div key={prop.car} className="p-4 w-full h-full rounded-lg bg-slate-300 border-[1px] border-slate-400">
+export default function CarDetailsCard({ cars }){
+    return(cars.map((car) => (
+            <div key={car.car_model} className="p-4 w-full h-full rounded-lg bg-slate-200 border-[1px] border-slate-300">
                 <div className="flex justify-between items-center h-full">
                     <div className="flex flex-col justify-between h-full ">
-                        <p>{prop.car}</p>
-                        <p>{prop.mechanic}</p>
+                        <p>{car.car_model}</p>
+                        <p>{car.mechanic}</p>
                     </div>
-                    <img src={prop.image} alt="poza masina" />
+                    <img src={car.image} alt="poza masina" />
                 </div>
             </div>
         )))

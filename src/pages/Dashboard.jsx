@@ -3,9 +3,36 @@ import AreaChart from "../components/AreaChart.jsx"
 import BarChart from "../components/BarChart.jsx"
 import LineChart from "../components/LineChart.jsx"
 import CarDetailsCard from "../components/CarDetailsCard.jsx"
-import cars from "../data/cars.js"
+import { useEffect,useState } from 'react'
+import { supabase } from "../libs/supabaseClient.js";
 
 export default function Dashboard() {
+    const [latest, setLatest] = useState([])
+    const [inProgress, setInProgress] = useState()
+
+    async function getLatest(){
+      const { data: latestData, error: latestError } = await supabase
+        .from('cars')
+        .select('*')
+        .limit(4)
+
+      const { count: inProgressCount, error: inProgressError } = await supabase
+        .from('cars')
+        .select('*', {count: 'exact'})
+        .eq('status', 'In progress')
+
+      if(latestError||inProgressError){
+        alert("Eroare")
+      }else{
+        setLatest(latestData)
+        setInProgress(inProgressCount)
+      }
+    }
+    
+    useEffect(()=>{
+      getLatest();
+    }, [])
+
   const carsPerMonth = [
         { luna: '1-5', masini: 90 },
         { luna: '5-10', masini: 52 },
@@ -14,6 +41,24 @@ export default function Dashboard() {
         { luna: '20-25', masini: 48 },
         { luna: '25-30', masini: 70 },
     ];
+
+  if (!latest || !inProgress) {
+    return (
+      <Layout 
+      left={
+        <div></div>
+      }
+      right={
+        <div>
+          <h1 className="font-medium text-2xl">Hi, User_name</h1>
+        </div>
+      }>
+        <div className="flex items-center justify-center h-[90%] bg-slate-200">
+          <div class="h-12 w-12 animate-spin rounded-full border-8 border-gray-200 border-t-slate-600"></div>
+        </div>
+      </Layout>
+    )
+  }
   
   return (
     <>
@@ -36,7 +81,7 @@ export default function Dashboard() {
                 </span>
               </div>
               <div className="flex h-5/6 justify-center items-center">
-                  <p className="font-bold text-7xl">12</p>
+                  <p className="font-bold text-7xl">{inProgress}</p>
               </div>
             </div>
 
@@ -83,7 +128,7 @@ export default function Dashboard() {
               </span>
             </div>
             <div className="grid grid-cols-4 grid-rows-1 gap-6 h-full">
-              <CarDetailsCard prop={cars}/>
+              <CarDetailsCard cars = {latest}/>
             </div>
           </div>
         </div>
