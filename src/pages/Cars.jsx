@@ -2,10 +2,19 @@ import Layout from "../components/Layout.jsx"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import { supabase } from "../libs/supabaseClient.js";
+import { useLocation } from 'react-router-dom';
 
-export default function Cars({ passedFilter }) {
+export default function Cars() {
 
-  !passedFilter ? passedFilter="All": null;
+  const passed = useLocation().state
+  let passedFilter
+  if(passed){
+    passedFilter = passed.filter
+  }else{
+    passedFilter="All"
+  }
+
+  console.log(passedFilter)
 
   const [cars, setCars] = useState([])
   const [filter, setFilter] = useState(passedFilter)

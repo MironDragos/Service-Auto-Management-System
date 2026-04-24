@@ -4,6 +4,7 @@ import BarChart from "../components/BarChart.jsx"
 import LineChart from "../components/LineChart.jsx"
 import CarDetailsCard from "../components/CarDetailsCard.jsx"
 import { useEffect,useState } from 'react'
+import { Link } from 'react-router-dom';
 import { supabase } from "../libs/supabaseClient.js";
 
 export default function Dashboard() {
@@ -45,7 +46,7 @@ export default function Dashboard() {
         .eq('date', now)
         .eq('status', 'Completed')
       
-      if(latestError||inProgressError||waitingError||completedThisMonthError||completedTodayError){
+      if(latestError || inProgressError || waitingError || completedThisMonthError || completedTodayError){
         alert("Eroare")
       }else{
         setLatest(latestData)
@@ -85,7 +86,6 @@ export default function Dashboard() {
   
   return (
     <>
-      {console.log(completedThisMonth)}
       <Layout
         left={
           <div></div>
@@ -100,7 +100,9 @@ export default function Dashboard() {
             <div className="flex justify-between">
               <h1 className="inline-block wrap">Current orders</h1>
               <span>
-                <a href="" className="text-blue-600 underline ">view all</a>
+                <Link to="/cars" state={{ filter: "In progress" }} className="text-blue-600 underline ">
+                  view all
+                </Link>
               </span>
             </div>
             <div className="grid grid-cols-4 grid-rows-1 gap-6 h-full">
@@ -113,7 +115,9 @@ export default function Dashboard() {
               <div className="flex justify-between">
                 <h1 className="inline-block wrap">Cars in progress</h1>
                 <span>
-                  <a href="" className="text-blue-600 underline pr-2">view all</a>
+                  <Link to="/cars" state={{ filter: "In progress" }} className="text-blue-600 underline ">
+                    view all
+                  </Link>
                 </span>
               </div>
               <div className="flex h-5/6 justify-center items-center">
@@ -125,7 +129,9 @@ export default function Dashboard() {
               <div className="flex justify-between">
                 <h1 className="inline-block wrap">Cars waiting</h1>
                 <span>
-                 <a href="" className="text-blue-600 underline pr-2">view all</a>
+                  <Link to="/cars" state={{ filter: "Waiting" }} className="text-blue-600 underline ">
+                    view all
+                  </Link>
                 </span>
               </div>
               <div className="flex h-5/6 justify-center items-center">
@@ -137,7 +143,9 @@ export default function Dashboard() {
               <div className="flex justify-between">
                 <h1 className="inline-block wrap">Cars completed today</h1>
                 <span>
-                  <a href="" className="text-blue-600 underline pr-2">view all</a>
+                  <Link to="/cars" state={{ filter: "Completed" }} className="text-blue-600 underline ">
+                    view all
+                  </Link>
                 </span>
               </div>
               <div className="flex h-5/6 justify-center items-center">
@@ -149,9 +157,6 @@ export default function Dashboard() {
           <div className= "pr-8 pt-8 pb-10 rounded-lg bg-gray-100 border-[1px] border-slate-300 h-[36.6%]">
             <div className="flex justify-between">
               <h1 className="pl-8 inline-block pb-2 wrap">Total cars this month</h1>
-              <span>
-                <a href="" className="text-blue-600 underline pr-2">view all</a>
-              </span>
             </div>
             <BarChart data={completedThisMonth}/>
           </div>
