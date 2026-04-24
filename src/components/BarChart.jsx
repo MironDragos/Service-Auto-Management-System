@@ -9,19 +9,20 @@ import {
     Tooltip
 } from 'recharts'
 
-export default function Chart({data}){
+export default function Chart({ data }){
+    const cars = data.count;
     return(
         <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data}>
                 <YAxis />
-                <XAxis dataKey='luna'/>
+                <XAxis dataKey="date"/>
                 <CartesianGrid strokeDasharray="5 5"/>
 
                 <Legend/>
                 <Tooltip/>
 
                 <Bar 
-                    dataKey="masini" 
+                    dataKey="cars"
                     type="monotone"
                     stroke='black'
                     fill='gray'

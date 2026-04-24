@@ -14,7 +14,7 @@ export default function Chart({data}){
         <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data}>
                 <YAxis />
-                <XAxis dataKey='luna'/>
+                <XAxis dataKey='data'/>
                 <CartesianGrid strokeDasharray="5 5"/>
 
                 <Legend/>

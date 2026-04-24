@@ -3,10 +3,12 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import { supabase } from "../libs/supabaseClient.js";
 
-export default function Cars() {
+export default function Cars({ passedFilter }) {
+
+  !passedFilter ? passedFilter="All": null;
 
   const [cars, setCars] = useState([])
-  const [filter, setFilter] = useState("All")
+  const [filter, setFilter] = useState(passedFilter)
   const [searchContent, setSearchContent] = useState("")
 
   async function getData(){
@@ -25,6 +27,9 @@ export default function Cars() {
     getData();
   }, [])
 
+  function handleDelete(id){
+    console.log(id)
+  }
 
   const statusFiltredList = filter === "All" ? cars : cars.filter(car => car.status == filter)
   const searchFiltredList = statusFiltredList.filter(car=> car.client.toLowerCase().includes(searchContent.toLowerCase())||car.car_model.toLowerCase().includes(searchContent.toLowerCase()))
@@ -40,7 +45,7 @@ export default function Cars() {
         </div>
       }>
         <div className="flex items-center justify-center h-[90%] bg-slate-200">
-          <div class="h-12 w-12 animate-spin rounded-full border-8 border-gray-200 border-t-slate-600"></div>
+          <div className="h-12 w-12 animate-spin rounded-full border-8 border-gray-200 border-t-slate-600"></div>
         </div>
       </Layout>
     )
@@ -90,8 +95,18 @@ export default function Cars() {
                     <td className="flex-1 border-y border-slate-300 py-4 px-2">{prop.status}</td>
                     <td className="flex-1 border-y border-slate-300 py-4 px-2">{prop.date}</td>
                     <td className="flex-1 border-r border-y border-slate-300 py-4 px-2 rounded-r-lg flex justify-between items-center">  
-                      <Link to={`/car-details/${prop.id}`}>Edit</Link>
-                      <button className="text-red-600" type="button">Delete</button>
+                      <Link className="text-blue-600" to={`/car-details/${prop.id}`}>Edit</Link>
+                      <button onClick={async ()=>{
+                        const { data, error } = await supabase
+                          .from('cars')
+                          .delete('*')
+                          .eq('id',prop.id)
+                        if(error){
+                          alert("Eroare: " + error)
+                        }else{
+                          getData();
+                        }
+                      }} className="text-red-600" type="button">Delete</button>
                     </td>
                   </tr>
                 ))} 
