@@ -27,8 +27,17 @@ export default function Cars({ passedFilter }) {
     getData();
   }, [])
 
-  function handleDelete(id){
-    console.log(id)
+  async function handleDelete(id){
+    const { data, error } = await supabase
+      .from('cars')
+      .delete()
+      .eq('id', id)
+
+    if(error){
+      alert("Eroare: " + error)
+    }else{
+      getData();
+    }
   }
 
   const statusFiltredList = filter === "All" ? cars : cars.filter(car => car.status == filter)
