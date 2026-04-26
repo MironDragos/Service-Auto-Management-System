@@ -22,9 +22,8 @@ export default function Dashboard() {
 
     async function getLatest(){
       const { data: latestData, error: latestError } = await supabase
-        .from('cars')
+        .from('latest_cars')
         .select('*')
-        .limit(4)
 
       const { count: inProgressCount, error: inProgressError } = await supabase
         .from('cars')

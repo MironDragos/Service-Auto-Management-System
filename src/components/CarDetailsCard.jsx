@@ -6,7 +6,7 @@ export default function CarDetailsCard({ cars }){
                         <p>{car.car_model}</p>
                         <p>{car.mechanic}</p>
                     </div>
-                    <img src={car.image} alt="poza masina" />
+                    <img className="w-28 h-28 rounded-lg" src={car.image_url} alt="" />
                 </div>
             </div>
         )))

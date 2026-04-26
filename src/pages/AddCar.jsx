@@ -1,21 +1,33 @@
 import Layout from "../components/Layout.jsx"
-import { useState } from "react"
+import { useEffect,useState } from "react"
 import { supabase } from "../libs/supabaseClient.js"
 
 export default function AddCar() {
   const [clientName, setClientName] = useState("")
   const [carModel, setCarModel] = useState("")
   const [mechanic, setMechanic] = useState("")
-  const [status, setStatus] = useState("")
+  const [status, setStatus] = useState("Waiting")
   const [date, setDate] = useState("")
+
+  const PEXEL_KEY = import.meta.env.VITE_PEXEL_KEY
+
+  async function pexelsAi(model){
+    const newModel = model.replace(" ","+")
+    const response = await fetch(`https://api.pexels.com/v1/search?query=${newModel}&orientation=square&size=small&per_page=1`,{headers: {Authorization: PEXEL_KEY}})
+    const data = await response.json()
+    return data.photos[0].src.original
+  }
 
 
   async function handleSubmit(e){
     e.preventDefault();
+
+    const imgUrl = await pexelsAi(carModel);
+
     const { data, error } = await supabase
       .from('cars')
       .insert([
-        {client: clientName, car_model: carModel, mechanic: mechanic, status: status, date: date}
+        {client: clientName, car_model: carModel, mechanic: mechanic, status: status, date: date, image_url: imgUrl}
       ])
     
     if(error){
@@ -24,7 +36,7 @@ export default function AddCar() {
       setClientName("")
       setCarModel("")
       setMechanic("")
-      setStatus("")
+      setStatus("Waiting")
       setDate("")
 
       e.target.reset();
