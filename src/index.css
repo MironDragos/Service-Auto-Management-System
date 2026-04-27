@@ -13,5 +13,5 @@
 body {
   overflow: hidden;
   height: 100%;
-  margin: 0; /* Ensures no scrollbars on edges */
+  margin: 0;
 }

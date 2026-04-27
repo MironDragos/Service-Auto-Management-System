@@ -1,7 +1,7 @@
 import Layout from "../components/Layout.jsx";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Pencil } from "lucide-react";
+import { Pencil, Trash, Save, X } from "lucide-react";
 import { supabase } from "../libs/supabaseClient.js";
 
 export default function CarDetails() {
@@ -26,6 +26,10 @@ export default function CarDetails() {
     }
   }
 
+  function handleModeSwitch() {
+    setEditMode((prevEditMode) => !prevEditMode);
+  }
+
   useEffect(() => {
     getData();
   }, []);
@@ -36,7 +40,7 @@ export default function CarDetails() {
         left={<div></div>}
         right={
           <div>
-            <h1 className="font-medium text-2xl">Detalii comanda: #{id}</h1>
+            <h1 className="font-medium text-2xl">Order details: #{id}</h1>
           </div>
         }
       >
@@ -52,26 +56,64 @@ export default function CarDetails() {
         left={<div></div>}
         right={
           <div>
-            <h1 className="font-medium text-2xl">Detalii comanda: #{id}</h1>
+            <h1 className="font-medium text-2xl">Order details: #{id}</h1>
           </div>
         }
       >
         <div className="flex flex-col gap-3 p-6 w-full h-[90%] bg-slate-200">
-          <div className="flex flex-row bg-gray-100 border-[1px] border-slate-300 p-6 gap-4 rounded-lg h-full">
-            <div className="grid grid-cols-2 grid-rows-2 gap-4 w-9/12">
-              <div className="bg-gray-100 border-[1px] border-slate-300 p-4 rounded-lg">
-                <p>{car.client}</p>
+          <div className="flex flex-row bg-gray-100 border-[1px] border-slate-300 p-6 gap-4 rounded-lg ">
+            <div className="grid grid-cols-3 gap-4 w-9/12">
+              {/* Coloana CLIENT */}
+              <div className="flex flex-col gap-2">
+                <p className="font-light text-2xl text-slate-800 ">Client</p>
+                <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
+                  <p className="font-semibold text-sm text-slate-600">Nume</p>
+                  <p className="text-slate-500 font-light ">{car.client}</p>
+                </div>
+                <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
+                  <p className="font-semibold text-sm text-slate-600">
+                    Telefon
+                  </p>
+                  <p className="text-slate-500 font-light ">+373 602 457 50</p>
+                </div>
               </div>
-              <div className="bg-gray-100 border-[1px] border-slate-300 p-4 rounded-lg">
-                <p>{car.car_model}</p>
+
+              {/* Coloana CAR */}
+              <div className="flex flex-col gap-2">
+                <p className="font-light text-2xl text-slate-800 ">Mașină</p>
+                <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
+                  <p className="font-semibold text-sm text-slate-600">Model</p>
+                  <p className="text-slate-500 font-light ">{car.car_model}</p>
+                </div>
+                <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
+                  <p className="font-semibold text-sm text-slate-600">
+                    Problemă
+                  </p>
+                  <p className="text-slate-500 font-light ">
+                    Scurgere lichid răcire
+                  </p>
+                </div>
               </div>
-              <div className="bg-gray-100 border-[1px] border-slate-300 p-4 rounded-lg">
-                <p>{car.mechanic}</p>
-              </div>
-              <div className="bg-gray-100 border-[1px] border-slate-300 p-4 rounded-lg">
-                <p>{car.date}</p>
+
+              {/* Coloana ORDER */}
+              <div className="flex flex-col gap-2">
+                <p className="font-light text-2xl text-slate-800">Comandă</p>
+                <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
+                  <p className="font-semibold text-sm text-slate-600">
+                    Mecanic
+                  </p>
+                  <p className="text-slate-500 font-light ">{car.mechanic}</p>
+                </div>
+                <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
+                  <p className="font-semibold text-sm text-slate-600">
+                    Data Primirii
+                  </p>
+                  <p className="text-slate-500 font-light ">{car.date}</p>
+                </div>
               </div>
             </div>
+
+            {/* Bara Laterală (Neschimbată) */}
             <div className="flex flex-col text-left w-3/12 gap-3">
               <h1 className="font-medium text-2xl w-full text-right">
                 Status:{" "}
@@ -79,13 +121,134 @@ export default function CarDetails() {
                   {car.status}
                 </span>
               </h1>
-              <div className="bg-gray-100 border-[1px] border-slate-300 p-2 rounded-lg flex justify-center items-center gap-2">
+              <button
+                type="button"
+                onClick={handleModeSwitch}
+                className="bg-gray-100 border-[1px] border-slate-300 p-2 rounded-lg flex justify-center items-center gap-2 hover:bg-slate-200 transition-colors"
+              >
                 <Pencil size={22} />
-                <p className="text-lg">Editeaza comanda</p>
+                <p className="text-lg">Edit</p>
+              </button>
+              <button className="bg-gray-100 border-[1px] border-slate-300 p-2 rounded-lg flex justify-center items-center gap-2 hover:bg-slate-200 transition-colors">
+                <Trash size={22} />
+                <p className="text-lg">Delete</p>
+              </button>
+            </div>
+          </div>
+        </div>
+      </Layout>
+    );
+  } else {
+    return (
+      <Layout
+        left={<div></div>}
+        right={
+          <div>
+            <h1 className="font-medium text-2xl">Order details: #{id}</h1>
+          </div>
+        }
+      >
+        <div className="flex flex-col gap-3 p-6 w-full h-[90%] bg-slate-200">
+          <div className="flex flex-row bg-gray-100 border-[1px] border-slate-300 p-6 gap-4 rounded-lg ">
+            <div className="grid grid-cols-3 gap-4 w-9/12 ">
+              {/* Coloana CLIENT */}
+              <div className="flex flex-col gap-2">
+                <p className="font-light text-2xl text-slate-800">Client</p>
+                <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
+                  <p className="font-semibold text-sm text-slate-600">Nume</p>
+                  <input
+                    className="focus:outline-none p-[2px] bg-gray-50 rounded-md border-[1px] border-gray-200 text-slate-500 font-light w-full"
+                    type="text"
+                    defaultValue={car.client}
+                  />
+                </div>
+                <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
+                  <p className="font-semibold text-sm text-slate-600">
+                    Telefon
+                  </p>
+                  <input
+                    className="focus:outline-none p-[2px] bg-gray-50 rounded-md border-[1px] border-gray-200 text-slate-500 font-light w-full"
+                    type="text"
+                    defaultValue="+373 602 457 50"
+                  />
+                </div>
               </div>
-              <div className="bg-gray-100 border-[1px] border-slate-300 p-5 rounded-lg"></div>
-              <div className="bg-gray-100 border-[1px] border-slate-300 p-5 rounded-lg"></div>
-              <div className="bg-gray-100 border-[1px] border-slate-300 p-5 rounded-lg"></div>
+
+              {/* Coloana CAR */}
+              <div className="flex flex-col gap-2">
+                <p className="font-light text-2xl text-slate-800">Mașină</p>
+                <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
+                  <p className="font-semibold text-sm text-slate-600">Model</p>
+                  <input
+                    className="focus:outline-none p-[2px] bg-gray-50 rounded-md border-[1px] border-gray-200 text-slate-500 font-light w-full"
+                    type="text"
+                    defaultValue={car.car_model}
+                  />
+                </div>
+                <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
+                  <p className="font-semibold text-sm text-slate-600">
+                    Problemă
+                  </p>
+                  <input
+                    className="focus:outline-none p-[2px] bg-gray-50 rounded-md border-[1px] border-gray-200 text-slate-500 font-light w-full"
+                    type="text"
+                    defaultValue="Scurgere lichid răcire"
+                  />
+                </div>
+              </div>
+
+              {/* Coloana ORDER / MECHANIC */}
+              <div className="flex flex-col gap-2">
+                <p className="font-light text-2xl text-slate-800">Comandă</p>
+                <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
+                  <p className="font-semibold text-sm text-slate-600">
+                    Mecanic
+                  </p>
+                  <input
+                    className="focus:outline-none p-[2px] bg-gray-50 rounded-md border-[1px] border-gray-200 text-slate-500 font-light w-full"
+                    type="text"
+                    defaultValue={car.mechanic}
+                  />
+                </div>
+                <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
+                  <p className="font-semibold text-sm text-slate-600">
+                    Data Primirii
+                  </p>
+                  <input
+                    className="focus:outline-none p-[2px] bg-gray-50 rounded-md border-[1px] border-gray-200 text-slate-500 font-light w-full"
+                    type="text"
+                    defaultValue={car.date}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Bara Laterală */}
+            <div className="flex flex-col text-left w-3/12 gap-3">
+              <h1 className="font-medium text-2xl w-full text-right">
+                Status:{" "}
+                <span className="font-light text-xl bg-violet-300 border-[1px] border-violet-400 rounded-lg p-1">
+                  {car.status}
+                </span>
+              </h1>
+              <button
+                type="button"
+                onClick={handleModeSwitch}
+                className="bg-green-100 border-[1px] border-green-300 p-2 rounded-lg flex justify-center items-center gap-2 hover:bg-green-200 transition-colors"
+              >
+                <Save size={22} />
+                <p className="text-lg font-medium text-green-700">
+                  Save changes
+                </p>
+              </button>
+              <button
+                type="button"
+                onClick={handleModeSwitch}
+                className="bg-red-100 border-[1px] border-red-300 p-2 rounded-lg flex justify-center items-center gap-2 hover:bg-red-200 transition-colors"
+              >
+                <X size={22} />
+                <p className="text-lg">Cancel</p>
+              </button>
             </div>
           </div>
         </div>
