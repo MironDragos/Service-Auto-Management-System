@@ -293,7 +293,7 @@ export default function CarDetails() {
                       Choose...
                     </option>
                     <option value="Completed">Completed</option>
-                    <option value="In Progress">In Progress</option>
+                    <option value="In progress">In progress</option>
                     <option value="Waiting">Waiting</option>
                   </select>
                 </span>
