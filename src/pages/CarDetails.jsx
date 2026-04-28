@@ -1,12 +1,21 @@
 import Layout from "../components/Layout.jsx";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Pencil, Trash, Save, X } from "lucide-react";
 import { supabase } from "../libs/supabaseClient.js";
 
 export default function CarDetails() {
+  const navigate = useNavigate();
+
   const [car, setCar] = useState();
   const [editMode, setEditMode] = useState(false);
+  const [clientName, setClientName] = useState("");
+  const [carModel, setCarModel] = useState("");
+  const [mechanic, setMechanic] = useState("");
+  const [status, setStatus] = useState("");
+  const [date, setDate] = useState("");
+  const [phone, setPhone] = useState("");
+  const [issue, setIssue] = useState("");
 
   const path = useLocation().pathname;
   const preid = path.split("/car-details/");
@@ -23,11 +32,59 @@ export default function CarDetails() {
       alert("Eroare: " + error);
     } else {
       setCar(data);
+      setClientName(data.client);
+      setCarModel(data.car_model);
+      setMechanic(data.mechanic);
+      setStatus(data.status);
+      setDate(data.date);
+      setPhone(data.phone);
+      setIssue(data.issue);
     }
   }
 
   function handleModeSwitch() {
     setEditMode((prevEditMode) => !prevEditMode);
+    console.log(clientName);
+  }
+
+  async function handleDelete() {
+    if (confirm("Are you sure?")) {
+      const { data, error } = await supabase
+        .from("cars")
+        .delete("*")
+        .eq("id", id);
+
+      if (error) {
+        alert("Eroare: " + error);
+      } else {
+        setCar(data);
+        navigate("/");
+      }
+    }
+  }
+
+  async function handleSave() {
+    if (confirm("Are you sure?")) {
+      const { data, error } = await supabase
+        .from("cars")
+        .update({
+          client: clientName,
+          car_model: carModel,
+          mechanic: mechanic,
+          status: status,
+          date: date,
+          phone: phone,
+          issue: issue,
+        })
+        .eq("id", id);
+
+      if (error) {
+        alert("Eroare: " + error);
+      } else {
+        getData();
+        handleModeSwitch();
+      }
+    }
   }
 
   useEffect(() => {
@@ -67,48 +124,42 @@ export default function CarDetails() {
               <div className="flex flex-col gap-2">
                 <p className="font-light text-2xl text-slate-800 ">Client</p>
                 <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
-                  <p className="font-semibold text-sm text-slate-600">Nume</p>
-                  <p className="text-slate-500 font-light ">{car.client}</p>
+                  <p className="font-semibold text-sm text-slate-600">Name</p>
+                  <p className="text-slate-500 font-light ">{clientName}</p>
                 </div>
                 <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
-                  <p className="font-semibold text-sm text-slate-600">
-                    Telefon
-                  </p>
-                  <p className="text-slate-500 font-light ">+373 602 457 50</p>
+                  <p className="font-semibold text-sm text-slate-600">Phone</p>
+                  <p className="text-slate-500 font-light ">{phone}</p>
                 </div>
               </div>
 
               {/* Coloana CAR */}
               <div className="flex flex-col gap-2">
-                <p className="font-light text-2xl text-slate-800 ">Mașină</p>
+                <p className="font-light text-2xl text-slate-800 ">Car</p>
                 <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
                   <p className="font-semibold text-sm text-slate-600">Model</p>
-                  <p className="text-slate-500 font-light ">{car.car_model}</p>
+                  <p className="text-slate-500 font-light ">{carModel}</p>
                 </div>
                 <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
-                  <p className="font-semibold text-sm text-slate-600">
-                    Problemă
-                  </p>
-                  <p className="text-slate-500 font-light ">
-                    Scurgere lichid răcire
-                  </p>
+                  <p className="font-semibold text-sm text-slate-600">Issue</p>
+                  <p className="text-slate-500 font-light ">{issue}</p>
                 </div>
               </div>
 
               {/* Coloana ORDER */}
               <div className="flex flex-col gap-2">
-                <p className="font-light text-2xl text-slate-800">Comandă</p>
+                <p className="font-light text-2xl text-slate-800">Order</p>
                 <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
                   <p className="font-semibold text-sm text-slate-600">
-                    Mecanic
+                    Mechanic
                   </p>
-                  <p className="text-slate-500 font-light ">{car.mechanic}</p>
+                  <p className="text-slate-500 font-light ">{mechanic}</p>
                 </div>
                 <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
                   <p className="font-semibold text-sm text-slate-600">
-                    Data Primirii
+                    Date of Receipt
                   </p>
-                  <p className="text-slate-500 font-light ">{car.date}</p>
+                  <p className="text-slate-500 font-light ">{date}</p>
                 </div>
               </div>
             </div>
@@ -118,7 +169,7 @@ export default function CarDetails() {
               <h1 className="font-medium text-2xl w-full text-right">
                 Status:{" "}
                 <span className="font-light text-xl bg-violet-300 border-[1px] border-violet-400 rounded-lg p-1">
-                  {car.status}
+                  {status}
                 </span>
               </h1>
               <button
@@ -129,7 +180,10 @@ export default function CarDetails() {
                 <Pencil size={22} />
                 <p className="text-lg">Edit</p>
               </button>
-              <button className="bg-gray-100 border-[1px] border-slate-300 p-2 rounded-lg flex justify-center items-center gap-2 hover:bg-slate-200 transition-colors">
+              <button
+                onClick={handleDelete}
+                className="bg-gray-100 border-[1px] border-slate-300 p-2 rounded-lg flex justify-center items-center gap-2 hover:bg-slate-200 transition-colors"
+              >
                 <Trash size={22} />
                 <p className="text-lg">Delete</p>
               </button>
@@ -155,69 +209,71 @@ export default function CarDetails() {
               <div className="flex flex-col gap-2">
                 <p className="font-light text-2xl text-slate-800">Client</p>
                 <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
-                  <p className="font-semibold text-sm text-slate-600">Nume</p>
+                  <p className="font-semibold text-sm text-slate-600">Name</p>
                   <input
+                    onChange={(e) => setClientName(e.target.value)}
                     className="focus:outline-none p-[2px] bg-gray-50 rounded-md border-[1px] border-gray-200 text-slate-500 font-light w-full"
                     type="text"
-                    defaultValue={car.client}
+                    defaultValue={clientName}
                   />
                 </div>
                 <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
-                  <p className="font-semibold text-sm text-slate-600">
-                    Telefon
-                  </p>
+                  <p className="font-semibold text-sm text-slate-600">Phone</p>
                   <input
+                    onChange={(e) => setPhone(e.target.value)}
                     className="focus:outline-none p-[2px] bg-gray-50 rounded-md border-[1px] border-gray-200 text-slate-500 font-light w-full"
                     type="text"
-                    defaultValue="+373 602 457 50"
+                    defaultValue={phone}
                   />
                 </div>
               </div>
 
               {/* Coloana CAR */}
               <div className="flex flex-col gap-2">
-                <p className="font-light text-2xl text-slate-800">Mașină</p>
+                <p className="font-light text-2xl text-slate-800">Car</p>
                 <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
                   <p className="font-semibold text-sm text-slate-600">Model</p>
                   <input
+                    onChange={(e) => setCarModel(e.target.value)}
                     className="focus:outline-none p-[2px] bg-gray-50 rounded-md border-[1px] border-gray-200 text-slate-500 font-light w-full"
                     type="text"
-                    defaultValue={car.car_model}
+                    defaultValue={carModel}
                   />
                 </div>
                 <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
-                  <p className="font-semibold text-sm text-slate-600">
-                    Problemă
-                  </p>
+                  <p className="font-semibold text-sm text-slate-600">Issue</p>
                   <input
+                    onChange={(e) => setIssue(e.target.value)}
                     className="focus:outline-none p-[2px] bg-gray-50 rounded-md border-[1px] border-gray-200 text-slate-500 font-light w-full"
                     type="text"
-                    defaultValue="Scurgere lichid răcire"
+                    defaultValue={issue}
                   />
                 </div>
               </div>
 
               {/* Coloana ORDER / MECHANIC */}
               <div className="flex flex-col gap-2">
-                <p className="font-light text-2xl text-slate-800">Comandă</p>
+                <p className="font-light text-2xl text-slate-800">Order</p>
                 <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
                   <p className="font-semibold text-sm text-slate-600">
-                    Mecanic
+                    Mechanic
                   </p>
                   <input
+                    onChange={(e) => setMechanic(e.target.value)}
                     className="focus:outline-none p-[2px] bg-gray-50 rounded-md border-[1px] border-gray-200 text-slate-500 font-light w-full"
                     type="text"
-                    defaultValue={car.mechanic}
+                    defaultValue={mechanic}
                   />
                 </div>
                 <div className="bg-gray-100 border-[1px] border-slate-300 p-3 rounded-lg">
                   <p className="font-semibold text-sm text-slate-600">
-                    Data Primirii
+                    Date of Receipt
                   </p>
                   <input
+                    onChange={(e) => setDate(e.target.value)}
                     className="focus:outline-none p-[2px] bg-gray-50 rounded-md border-[1px] border-gray-200 text-slate-500 font-light w-full"
                     type="text"
-                    defaultValue={car.date}
+                    defaultValue={date}
                   />
                 </div>
               </div>
@@ -228,12 +284,23 @@ export default function CarDetails() {
               <h1 className="font-medium text-2xl w-full text-right">
                 Status:{" "}
                 <span className="font-light text-xl bg-violet-300 border-[1px] border-violet-400 rounded-lg p-1">
-                  {car.status}
+                  <select
+                    onChange={(e) => setStatus(e.target.value)}
+                    name="status"
+                    id="status"
+                  >
+                    <option value="" disabled selected hidden>
+                      Choose...
+                    </option>
+                    <option value="Completed">Completed</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Waiting">Waiting</option>
+                  </select>
                 </span>
               </h1>
               <button
                 type="button"
-                onClick={handleModeSwitch}
+                onClick={handleSave}
                 className="bg-green-100 border-[1px] border-green-300 p-2 rounded-lg flex justify-center items-center gap-2 hover:bg-green-200 transition-colors"
               >
                 <Save size={22} />
