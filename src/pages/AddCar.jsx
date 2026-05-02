@@ -159,7 +159,7 @@ export default function AddCar() {
             </div>
 
             <input
-              className="bg-slate-500 border-[1px] border-slate-600 p-2 w-36 rounded-lg text-white cursor-pointer font-medium"
+              className="bg-slate-500 border-[1px] border-slate-600 p-2 w-36 rounded-lg text-white cursor-pointer font-medium hover:bg-slate-600"
               type="submit"
               name=""
               id=""
