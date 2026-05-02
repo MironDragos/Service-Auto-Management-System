@@ -15,7 +15,7 @@ export default function Dashboard() {
   const [completedToday, setCompletedToday] = useState();
 
   const email = localStorage.getItem("email");
-  const name = email.split("@")[0];
+  const name = email?.split("@")[0] ?? "Owner";
 
   const nowOld = new Date();
   const now = nowOld.toISOString();

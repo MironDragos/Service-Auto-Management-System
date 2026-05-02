@@ -5,20 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function Layout({ left, right, children }) {
   const email = localStorage.getItem("email");
-  const name = email.split("@")[0];
+  const name = email?.split("@")[0] ?? "Owner";
 
   const navigate = useNavigate();
-
-  async function getUser() {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    setEmail(user.email);
-  }
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {

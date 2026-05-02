@@ -18,8 +18,8 @@ export default function SignIn() {
     if (error) {
       alert(error);
     } else {
-      localStorage.setItem("email", email);
       navigate("/dashboard");
+      localStorage.setItem("email", email);
     }
   }
 
@@ -59,7 +59,6 @@ export default function SignIn() {
                 name="email"
                 id="email"
                 placeholder="Email"
-                defaultValue={"Service_Owner@gmail.com"}
                 required
               />
             </div>
@@ -81,11 +80,13 @@ export default function SignIn() {
                 name="password"
                 id="password"
                 placeholder="Password"
-                defaultValue={"admin123"}
                 required
               />
             </div>
-
+            <p className="font-light text-xs">
+              For testing purposes, use the following credentials: email:
+              Service_Owner@gmail.com | password: admin123
+            </p>
             <input
               className="mt-6 p-2.5 bg-slate-200 border-2 w-2/3 self-center border-slate-300 rounded-xl flex justify-center items-center gap-2 hover:shadow-[inset_0_0px_5px_rgba(0,0,0,0.1)] transition-colors cursor-pointer font-medium"
               type="submit"

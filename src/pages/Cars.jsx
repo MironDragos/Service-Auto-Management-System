@@ -64,7 +64,6 @@ export default function Cars() {
             className="p-2 rounded-lg"
             type="text"
             id="myInput"
-            on
             placeholder="Search cars.."
           ></input>
         }
