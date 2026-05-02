@@ -1,16 +1,20 @@
-# React + Vite
+# Service Auto Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web-based admin panel for managing a car service workshop.
 
-Currently, two official plugins are available:
+## Tech Stack
+React, Vite, Tailwind CSS, Supabase, SQL.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
+- Dashboard with live statistics
+- Full car orders management (CRUD)
+- Search and filter by status
+- Supabase authentication
+- Pexels API integration for car images
 
-## React Compiler
+## Live Demo
+https://service-auto-management-system.vercel.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Test Credentials
+Email: Service_Owner@gmail.com
+Password: admin123
