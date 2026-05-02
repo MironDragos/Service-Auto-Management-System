@@ -14,11 +14,11 @@ export default function Dashboard() {
   const [completedThisMonth, setCompletedThisMonth] = useState([]);
   const [completedToday, setCompletedToday] = useState();
 
+  const email = localStorage.getItem("email");
+  const name = email.split("@")[0];
+
   const nowOld = new Date();
   const now = nowOld.toISOString();
-  const now30Days = new Date();
-  now30Days.setDate(now30Days.getDate() - 30);
-  const startDate = now30Days.toISOString();
 
   async function getLatest() {
     const { data: latestData, error: latestError } = await supabase
@@ -79,7 +79,7 @@ export default function Dashboard() {
         left={<div></div>}
         right={
           <div>
-            <h1 className="font-medium text-2xl">Hi, User_name</h1>
+            <h1 className="font-medium text-2xl">Hi, {name}</h1>
           </div>
         }
       >
@@ -94,7 +94,7 @@ export default function Dashboard() {
     <>
       <Layout
         left={<div></div>}
-        right={<p className="font-medium text-2xl">Hi, User_name</p>}
+        right={<p className="font-medium text-2xl">Hi, {name}</p>}
       >
         <div className="flex flex-col gap-4 p-6 w-full h-[90%] bg-slate-200 ">
           <div className="flex flex-col gap-4 p-6 h-[33.3%] rounded-lg bg-gray-100 border-[1px] border-slate-300">

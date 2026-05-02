@@ -8,7 +8,6 @@ import AddCar from "./pages/AddCar.jsx";
 import Settings from "./pages/Settings.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import SignIn from "./pages/SignIn.jsx";
-import SignUp from "./pages/SignUp.jsx";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -22,7 +21,6 @@ const router = createBrowserRouter([
   { path: "/cars", element: <Cars /> },
   { path: "/add-car", element: <AddCar /> },
   { path: "/sign-in", element: <SignIn /> },
-  { path: "/sign-up", element: <SignUp /> },
   { path: "/settings", element: <Settings /> },
   { path: "*", element: <NotFoundPage /> },
 ]);

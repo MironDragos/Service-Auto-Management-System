@@ -13,8 +13,6 @@ export default function Cars() {
     passedFilter = "All";
   }
 
-  console.log(passedFilter);
-
   const [cars, setCars] = useState([]);
   const [filter, setFilter] = useState(passedFilter);
   const [searchContent, setSearchContent] = useState("");
@@ -32,16 +30,6 @@ export default function Cars() {
   useEffect(() => {
     getData();
   }, []);
-
-  async function handleDelete(id) {
-    const { data, error } = await supabase.from("cars").delete().eq("id", id);
-
-    if (error) {
-      alert("Eroare: " + error);
-    } else {
-      getData();
-    }
-  }
 
   const statusFiltredList =
     filter === "All" ? cars : cars.filter((car) => car.status == filter);

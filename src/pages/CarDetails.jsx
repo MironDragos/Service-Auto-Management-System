@@ -1,6 +1,6 @@
 import Layout from "../components/Layout.jsx";
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Pencil, Trash, Save, X } from "lucide-react";
 import { supabase } from "../libs/supabaseClient.js";
 
@@ -44,7 +44,6 @@ export default function CarDetails() {
 
   function handleModeSwitch() {
     setEditMode((prevEditMode) => !prevEditMode);
-    console.log(clientName);
   }
 
   async function handleDelete() {

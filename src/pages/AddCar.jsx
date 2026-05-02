@@ -1,5 +1,5 @@
 import Layout from "../components/Layout.jsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { supabase } from "../libs/supabaseClient.js";
 
 export default function AddCar() {
@@ -76,6 +76,7 @@ export default function AddCar() {
                   id="clientName"
                   type="text"
                   className="border-slate-300 bg-slate-50 border-[1px] rounded-lg p-2 mb-6"
+                  placeholder="First and Last name"
                 />
               </div>
 
@@ -86,6 +87,7 @@ export default function AddCar() {
                   id="clientPhone"
                   type="text"
                   className="border-slate-300 bg-slate-50 border-[1px] rounded-lg p-2 mb-6"
+                  placeholder="(xxx) xxx-xxxx"
                 />
               </div>
             </div>
@@ -95,6 +97,7 @@ export default function AddCar() {
               id="carModel"
               type="text"
               className="border-slate-300 bg-slate-50 border-[1px] rounded-lg p-2 mb-6"
+              placeholder="Brand and Model"
             />
 
             <label htmlFor="carModel">Car Issue</label>
@@ -103,6 +106,7 @@ export default function AddCar() {
               id="carIssue"
               type="text"
               className="border-slate-300 bg-slate-50 border-[1px] rounded-lg p-2 mb-6"
+              placeholder="Cars issue"
             />
 
             <label htmlFor="mechanic">Mechanic</label>
@@ -111,6 +115,7 @@ export default function AddCar() {
               id="mechanic"
               type="text"
               className="border-slate-300 bg-slate-50 border-[1px] rounded-lg p-2 mb-6"
+              placeholder="Mechanic first name"
             />
 
             <div className="flex justify-between ">
