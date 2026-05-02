@@ -1,5 +1,5 @@
 import { supabase } from "../libs/supabaseClient.js";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Mail, Lock, LogIn } from "lucide-react";
 
@@ -14,7 +14,6 @@ export default function SignIn() {
       email: email,
       password: password,
     });
-    console.log(error);
     if (error) {
       alert(error);
     } else {

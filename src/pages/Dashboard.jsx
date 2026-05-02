@@ -1,7 +1,5 @@
 import Layout from "../components/Layout.jsx";
-import AreaChart from "../components/AreaChart.jsx";
 import BarChart from "../components/BarChart.jsx";
-import LineChart from "../components/LineChart.jsx";
 import CarDetailsCard from "../components/CarDetailsCard.jsx";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -18,7 +16,7 @@ export default function Dashboard() {
   const name = email?.split("@")[0] ?? "Owner";
 
   const nowOld = new Date();
-  const now = nowOld.toISOString();
+  const now = nowOld.toISOString().split("T")[0];
 
   async function getLatest() {
     const { data: latestData, error: latestError } = await supabase

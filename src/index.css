@@ -3,11 +3,26 @@
 @tailwind utilities;
 
 @layer components {
-  .test {
-    background-color: #3490dc;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
+  .Completed {
+    background-color: #dcfce7;
+    color: #15803d;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #86efac;
+  }
+  .Waiting {
+    background-color: #fef9c3;
+    color: #a16207;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #fde047;
+  }
+  .In-progress {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #93c5fd;
   }
 }
 body {

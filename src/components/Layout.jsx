@@ -1,6 +1,6 @@
 import Sidebar from "./Sidebar.jsx";
 import { supabase } from "../libs/supabaseClient.js";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Layout({ left, right, children }) {

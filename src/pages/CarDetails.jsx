@@ -167,7 +167,9 @@ export default function CarDetails() {
             <div className="flex flex-col text-left w-3/12 gap-3">
               <h1 className="font-medium text-2xl w-full text-right">
                 Status:{" "}
-                <span className="font-light text-xl bg-violet-300 border-[1px] border-violet-400 rounded-lg p-1">
+                <span
+                  className={status === "In progress" ? "In-progress" : status}
+                >
                   {status}
                 </span>
               </h1>
@@ -282,7 +284,9 @@ export default function CarDetails() {
             <div className="flex flex-col text-left w-3/12 gap-3">
               <h1 className="font-medium text-2xl w-full text-right">
                 Status:{" "}
-                <span className="font-light text-xl bg-violet-300 border-[1px] border-violet-400 rounded-lg p-1">
+                <span
+                  className={status === "In progress" ? "In-progress" : status}
+                >
                   <select
                     onChange={(e) => setStatus(e.target.value)}
                     name="status"

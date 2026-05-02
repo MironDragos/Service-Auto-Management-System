@@ -1,7 +1,7 @@
 import Layout from "../components/Layout.jsx";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../libs/supabaseClient.js";
-import { LogOut, Wrench, Phone, Mail, MapPin, Save } from "lucide-react";
+import { LogOut, Wrench, Save } from "lucide-react";
 import { useState } from "react";
 
 export default function Settings() {

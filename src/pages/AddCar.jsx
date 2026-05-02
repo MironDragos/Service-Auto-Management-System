@@ -16,7 +16,7 @@ export default function AddCar() {
   async function pexelsAi(model) {
     const newModel = model.replace(" ", "+");
     const response = await fetch(
-      `https://api.pexels.com/v1/search?query=${newModel}&orientation=square&size=small&per_page=1`,
+      `https://api.pexels.com/v1/search?query=${newModel}&orientation=square&per_page=1`,
       { headers: { Authorization: PEXEL_KEY } },
     );
     const data = await response.json();
